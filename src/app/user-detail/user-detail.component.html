@@ -1,0 +1,100 @@
+@if (user) {
+  <div class="card shadow-sm">
+    <div class="card-header bg-success text-white">
+      <h4 class="mb-0">
+        <i class="bi bi-person-circle me-2"></i>
+        Información del Usuario
+      </h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <!-- Columna izquierda: Imagen y datos básicos -->
+        <div class="col-md-4 text-center">
+          <img
+            [src]="user.image"
+            [alt]="user.firstName + ' ' + user.lastName"
+            class="img-fluid rounded-circle mb-3 user-image"
+            style="max-width: 150px; border: 3px solid #28a745;"
+          />
+          <h5 class="text-primary">{{ user.firstName }} {{ user.lastName }}</h5>
+          <p class="text-muted mb-2">
+            <i class="bi bi-at me-1"></i>
+            {{ user.username }}
+          </p>
+          @if (user.age) {
+            <p class="text-muted mb-0">
+              <i class="bi bi-calendar me-1"></i>
+              {{ user.age }} años
+            </p>
+          }
+        </div>
+
+        <!-- Columna derecha: Información detallada -->
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-sm-6 mb-3">
+              <h6 class="text-secondary mb-1">
+                <i class="bi bi-envelope me-1"></i>
+                Email
+              </h6>
+              <p class="mb-0">{{ user.email }}</p>
+            </div>
+
+            @if (user.phone) {
+              <div class="col-sm-6 mb-3">
+                <h6 class="text-secondary mb-1">
+                  <i class="bi bi-telephone me-1"></i>
+                  Teléfono
+                </h6>
+                <p class="mb-0">{{ user.phone }}</p>
+              </div>
+            }
+
+            @if (user.birthDate) {
+              <div class="col-sm-6 mb-3">
+                <h6 class="text-secondary mb-1">
+                  <i class="bi bi-gift me-1"></i>
+                  Fecha de Nacimiento
+                </h6>
+                <p class="mb-0">{{ formatBirthDate(user.birthDate) }}</p>
+                @if (user.birthDate) {
+                  <small class="text-muted">
+                    ({{ calculateAge(user.birthDate) }} años)
+                  </small>
+                }
+              </div>
+            }
+
+            <div class="col-sm-6 mb-3">
+              <h6 class="text-secondary mb-1">
+                <i class="bi bi-hash me-1"></i>
+                ID de Usuario
+              </h6>
+              <p class="mb-0">{{ user.id }}</p>
+            </div>
+          </div>
+
+          <!-- Badges informativos -->
+          <div class="mt-3">
+            <span class="badge bg-primary me-2">
+              <i class="bi bi-person-check me-1"></i>
+              Usuario Verificado
+            </span>
+            @if (user.email) {
+              <span class="badge bg-success me-2">
+                <i class="bi bi-envelope-check me-1"></i>
+                Email Disponible
+              </span>
+            }
+            @if (user.phone) {
+              <span class="badge bg-info">
+                <i class="bi bi-telephone-fill me-1"></i>
+                Teléfono Disponible
+              </span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
